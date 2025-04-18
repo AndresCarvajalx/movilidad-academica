@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router";
 import Button from "./Button";
 import Input from "./Input";
 import Select from "./Select";
-import { Navigate } from "react-router";
 
 import { useAuth } from "../../auth/AuthProvider";
 import { countries } from "../../data/Countries";
+import { useUser } from "../../domain/UserInfoProvider";
 
 type PersonalForm = {
   nombres: string;
@@ -35,6 +36,8 @@ const PersonalInfo: React.FC = () => {
   });
 
   const { user } = useAuth();
+  const { userData } = useUser();
+  const { updateUserData } = useUser();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,6 +48,12 @@ const PersonalInfo: React.FC = () => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    if (userData) {
+      setForm(userData);
+    }
+  }, [userData]);
 
   if (!user) {
     return <Navigate to="/login" />;
@@ -62,6 +71,9 @@ const PersonalInfo: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    updateUserData(form).then(() => {
+      alert("Datos actualizados correctamente");
+    });
   };
 
   return (

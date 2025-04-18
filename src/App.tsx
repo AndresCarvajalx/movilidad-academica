@@ -4,6 +4,7 @@ import Login from "./presentation/Login.tsx";
 import { Home } from "./presentation/Home.tsx";
 import { Signup } from "./presentation/Signup.tsx";
 import ProtectedRoute from "./routes/ProtectedRoute.tsx";
+import { UserInfoProvider } from "./domain/UserInfoProvider.tsx";
 
 export function App() {
   return (
@@ -14,7 +15,9 @@ export function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Home />
+                <UserInfoProvider>
+                  <Home />
+                </UserInfoProvider>
               </ProtectedRoute>
             }
           />

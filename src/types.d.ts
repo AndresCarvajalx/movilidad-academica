@@ -16,3 +16,18 @@ export interface ITab {
     label: string;
     component: React.ReactNode;
 }
+
+export interface IUserData {
+    uid: string;
+    nombres: string;
+    apellidos: string;
+    fechaNacimiento: string;
+    lugarNacimiento: string;
+    genero: string;
+    nacionalidad: string;
+    identificacion: string;
+    pasaporte: string;
+    correoPersonal: string;
+    telefono: string;
+    rol: string;
+} 
