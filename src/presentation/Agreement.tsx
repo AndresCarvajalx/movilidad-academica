@@ -3,6 +3,7 @@ import React from "react";
 import AgreementCard from "./components/AgreementCard.tsx";
 import type { Convenio } from "../types";
 
+// TODO GET ALL CONVENIOS FROM FIREBASE, alsto add a option to add and modify the convenios
 const conveniosList: Convenio[] = [
   {
     id: "1",

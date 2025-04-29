@@ -4,7 +4,7 @@ import Login from "./presentation/Login.tsx";
 import { Home } from "./presentation/Home.tsx";
 import { Signup } from "./presentation/Signup.tsx";
 import ProtectedRoute from "./routes/ProtectedRoute.tsx";
-import { UserInfoProvider } from "./domain/UserInfoProvider.tsx";
+import { UserInfoProvider } from "./core/UserInfoProvider.tsx";
 
 export function App() {
   return (

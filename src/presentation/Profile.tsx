@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 
 import { useAuth } from "../auth/AuthProvider";
-import { useUser } from "../domain/UserInfoProvider";
+import { useUser } from "../core/UserInfoProvider";
 import { ITab } from "../types";
 import ArchivosAdjuntos from "./components/ArchivosAdjuntos";
 import Button from "./components/Button";

@@ -5,6 +5,8 @@ interface InputProps {
   label: string;
   type?: string;
   placeholder?: string;
+  min?: string;
+  max?: string;
   value: string;
   required?: boolean;
   disabled?: boolean;
@@ -16,6 +18,8 @@ const Input: React.FC<InputProps> = ({
   label,
   type = "text",
   placeholder,
+  min,
+  max,
   value,
   required = false,
   disabled = false,
@@ -35,6 +39,8 @@ const Input: React.FC<InputProps> = ({
         required={required}
         disabled={disabled}
         onChange={onChange}
+        min={min}
+        max={max}
         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-(--green-color) focus:border-(--green-color)"
       />
     </div>

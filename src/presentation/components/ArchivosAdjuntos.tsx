@@ -10,55 +10,48 @@ const ArchivosAdjuntos: React.FC = () => {
         accept="application/pdf"
         fileTypeLabel="pdf"
         required={true}
-        onFileSelect={() => {}}
+        fileKey="fotocopiaIdentificacion"
       />
       <FileUpload
         label="Fotocopia pasaporte datos biográficos"
         accept="application/pdf"
         fileTypeLabel="pdf"
         required={true}
-        onFileSelect={() => {}}
-      />
-      <FileUpload
-        label="Fotocopia pasaporte datos biográficos"
-        accept="application/pdf"
-        fileTypeLabel="pdf"
-        required={true}
-        onFileSelect={() => {}}
+        fileKey="fotocopiaPasaporteDatosBiograficos"
       />
       <FileUpload
         label="Fotografía de identificación"
         accept="image/*"
         fileTypeLabel="imagen"
         required={true}
-        onFileSelect={() => {}}
+        fileKey="fotografiaDeIdentificacion"
       />
       <FileUpload
         label="Expediente académico/ certificado de notas"
         accept="application/pdf"
         fileTypeLabel="pdf"
         required={true}
-        onFileSelect={() => {}}
+        fileKey="certificadoDeNotas"
       />
       <FileUpload
         label="Carta de postulación Universidad de Origen"
         accept="application/pdf"
         fileTypeLabel="pdf"
         required={true}
-        onFileSelect={() => {}}
+        fileKey="cartaDePostulacionUniversidadDeOrigen"
       />
       <FileUpload
         label="Hoja de vida (sin soportes)"
         accept="application/pdf"
         fileTypeLabel="pdf"
         required={true}
-        onFileSelect={() => {}}
+        fileKey="hojaDeVida"
       />
       <FileUpload
         label="El certificado de idioma español (si es aplicable)"
         accept="application/pdf"
         fileTypeLabel="pdf"
-        onFileSelect={() => {}}
+        fileKey="certificadoDeIdioma"
       />
     </div>
   );

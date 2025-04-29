@@ -4,7 +4,7 @@ import type { Convenio } from "../../types";
 interface AgreementCardProps {
   agreement: Convenio;
 }
-// TODO
+// TODO traerse los convenios de la base de datos
 const AgreementCard: React.FC<AgreementCardProps> = ({ agreement }) => {
   return (
     <div className="flex flex-col md:flex-row bg-white shadow-sm rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">

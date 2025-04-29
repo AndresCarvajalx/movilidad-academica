@@ -1,30 +1,48 @@
 import { FiUpload } from "react-icons/fi";
-import React, { ChangeEvent, useId, useState } from "react";
+import React, { ChangeEvent, useEffect, useId, useState } from "react";
+import { useUser } from "../../core/UserInfoProvider";
 
 interface FileUploadProps {
   label?: string;
   accept?: string;
   required?: boolean;
   fileTypeLabel?: string;
-  onFileSelect?: (file: File) => void;
+  fileKey: string;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({
-  label = "Certificado de Idioma",
-  accept = "application/*",
+  label = "Archivo",
+  accept = "application/pdf",
   required = false,
   fileTypeLabel,
-  onFileSelect,
+  fileKey,
 }) => {
-  const [fileName, setFileName] = useState<string>();
   const id = useId();
-  const handleFileChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  const { uploadUserFiles, userData } = useUser();
+  const [fileName, setFileName] = useState<string>();
+  const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
+
+
+  useEffect(() => {
+    const existingUrl = userData?.files?.[fileKey as keyof typeof userData.files];
+    if (existingUrl) {
+      setUploadedUrl(existingUrl);
+      const nameFromUrl = existingUrl.substring(existingUrl.lastIndexOf("%2F") + 3, existingUrl.indexOf("?"));
+      setFileName(nameFromUrl);
+    }
+  }, [userData, fileKey]);
+
+  const handleFileChange = async (
+    e: ChangeEvent<HTMLInputElement>
   ) => {
-    const file = (e.target as HTMLInputElement).files?.[0];
-    if (file && onFileSelect) {
-      onFileSelect(file);
-      setFileName(file.name);
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setFileName(file.name);
+
+    const url = await uploadUserFiles(fileKey, file);
+    if (url) {
+      setUploadedUrl(url);
     }
   };
 
@@ -41,6 +59,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         >
           Seleccionar Archivo
         </label>
+
         <input
           id={id}
           type="file"
@@ -49,15 +68,27 @@ const FileUpload: React.FC<FileUploadProps> = ({
           className="hidden"
           required={required}
         />
+
         <p className="text-sm text-gray-500 mt-2">
           {fileName ? (
             <span className="text-green-600 font-semibold">
               Archivo: {fileName}
             </span>
           ) : (
-            <> {fileTypeLabel ?? ""} (máx. 5MB)</>
+            <>{fileTypeLabel ?? "PDF requerido (máx. 5MB)"}</>
           )}
         </p>
+
+        {uploadedUrl && (
+          <a
+            href={uploadedUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline text-sm mt-1"
+          >
+            Ver archivo subido
+          </a>
+        )}
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import Select from "./Select";
 
 import { useAuth } from "../../auth/AuthProvider";
 import { countries } from "../../data/Countries";
-import { useUser } from "../../domain/UserInfoProvider";
+import { useUser } from "../../core/UserInfoProvider";
 
 type PersonalForm = {
   nombres: string;
