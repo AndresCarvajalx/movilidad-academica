@@ -17,18 +17,18 @@ function Login() {
     const {login} = useAuth();
 
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState();
+    const [error, setError] = useState("");
 
-    const handleChange = ({target: {name, value}}) => {
+    const handleChange = ({target: {name, value}}: React.ChangeEvent<HTMLInputElement>) => {
         setUser({...user, [name]: value});
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
         login(user.email, user.password)
             .then(() => {
-                setError('');
+                setError("");
                 setLoading(false);
                 navigate("/");
             })
@@ -71,28 +71,25 @@ function Login() {
                                             <p className="mb-4">
                                                 Por favor inicia sesion con tu cuenta universitaria
                                             </p>
-                                            {/* <!--Username input--> */}
+
                                             <input
                                                 type="email"
                                                 name="email"
-                                                label="email"
                                                 className="w-full mb-4 rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-(--green-color)"
                                                 placeholder="example@unitropico.edu.co"
                                                 onChange={handleChange}
                                                 required
                                             />
-                                            {/* <!--Password input--> */}
+
                                             <input
                                                 type="password"
                                                 name="password"
-                                                label="password"
                                                 className="w-full mb-4 rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-(--green-color)"
                                                 placeholder="Contraseña"
                                                 onChange={handleChange}
                                                 required
                                             />
 
-                                            {/* <!--Submit button--> */}
                                             <div className="mb-12 pb-1 pt-1 text-center">
                                                 <button
                                                     className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useAuth } from "../auth/AuthProvider";
-import LoadingScreen from "./components/LoadingScreen";
-import { useNavigate, Link } from "react-router";
-import ErrorBanner from "./components/ErrorBanner";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import escudo_unitropico_1 from "../assets/escudo_unitropico_1.png";
+import { useAuth } from "../auth/AuthProvider";
+import ErrorBanner from "./components/ErrorBanner";
+import LoadingScreen from "./components/LoadingScreen";
 
 export function Signup() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -15,12 +15,13 @@ export function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 
-  const handleChange = ({ target: { name, value } }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
   const { signup } = useAuth();
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     signup(user.email, user.password)
@@ -65,28 +66,25 @@ export function Signup() {
                       <p className="mb-4">
                         Al crear tu cuenta, pon tu correo instutucional!!
                       </p>
-                      {/* <!--Username input--> */}
+
                       <input
                         type="email"
                         name="email"
-                        label="email"
                         className="w-full mb-4 rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-(--green-color)"
                         placeholder="example@unitropico.edu.co"
                         onChange={handleChange}
                         required
                       />
-                      {/* <!--Password input--> */}
+
                       <input
                         type="password"
                         name="password"
-                        label="password"
                         className="w-full mb-4 rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-(--green-color)"
                         placeholder="Contraseña"
                         onChange={handleChange}
                         required
                       />
 
-                      {/* <!--Submit button--> */}
                       <div className="mb-12 pb-1 pt-1 text-center">
                         <button
                           className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
@@ -100,13 +98,11 @@ export function Signup() {
                         </button>
                       </div>
 
-                      {/* <!--Register button--> */}
                       <div className="flex items-center justify-between pb-6">
                         <p className="mb-0 mr-2">Ya tienes cuenta?</p>
                         <Link
                           to="/login"
                           className="rounded border-2 border-(--gold-color) px-6 py-2 text-xs font-semibold uppercase text-(--gold-color) transition-colors duration-200 hover:bg-(--gold-color) hover:text-white"
-                          
                         >
                           Inicia Sesion
                         </Link>

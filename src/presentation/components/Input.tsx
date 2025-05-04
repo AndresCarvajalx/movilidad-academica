@@ -7,7 +7,7 @@ interface InputProps {
   placeholder?: string;
   min?: string;
   max?: string;
-  value: string;
+  value?: string;
   required?: boolean;
   disabled?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
