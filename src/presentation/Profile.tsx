@@ -33,7 +33,7 @@ const Profile: React.FC = () => {
     return <LoadingScreen />;
   }
 
-  if (userData?.rol == "admin") {
+  if (userData?.rol === "admin") {
     return (
       <div className=" mx-auto p-6 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">¡Hola Administrador!</h1>

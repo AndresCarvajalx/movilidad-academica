@@ -42,6 +42,7 @@ export const UserInfoProvider: React.FC<UserProviderProps> = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (authUser) {
+        console.log("Fetching user data for:", authUser.uid);
         try {
           const data = await getUserData(authUser.uid);
           setUserData(data);
@@ -77,7 +78,7 @@ export const UserInfoProvider: React.FC<UserProviderProps> = ({ children }) => {
       const url = await getDownloadURL(storageRef);
   
       const userRef = doc(db, "usuarios", authUser.uid);
-      await setDoc(userRef, { files: { [type]: url } }, { merge: true });
+      await setDoc(userRef, { uid: authUser.uid, files: { [type]: url } }, { merge: true });
   
       setUserData((prev) => ({
         ...prev!,

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { HiDocumentDownload } from "react-icons/hi";
+
 import fetchAllRequests from "../../../core/fetchAllRequests";
 import { IRequestForm } from "../../../types";
 import updateRequestState from "../../../core/updateRequestState";
+import { createPDFFromRequestForm } from "../../../core/createPDFFromRequestForm";
 
 const AdminAgreement: React.FC = () => {
   const [requests, setRequests] = useState<IRequestForm[]>([]);
@@ -41,6 +44,14 @@ const AdminAgreement: React.FC = () => {
 
   const handleObservationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setObservations(e.target.value);
+  };
+
+  const handleDownloadPDF = (request: IRequestForm) => {
+    try {
+      createPDFFromRequestForm(request);
+    } catch (error) {
+      console.log("Error al crear el PDF:", error);
+    }
   };
 
   const handleSave = async () => {
@@ -93,10 +104,18 @@ const AdminAgreement: React.FC = () => {
 
       {selectedRequest && (
         <div className="mt-8 p-8 bg-white rounded-2xl shadow-lg space-y-6">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">
-            Detalles de la Solicitud
-          </h2>
-
+          <div className="mb-6 border-b pb-2 grid grid-rows-1 md:grid-cols-2 gap-4">
+            <h2 className="text-3xl font-bold text-gray-800">
+              Detalles de la Solicitud
+            </h2>
+            <button
+              className="inline-flex items-center justify-center p-2 bg-(--gold-color) text-white rounded-lg hover:bg-yellow-700 transition duration-300"
+              onClick={() => handleDownloadPDF(selectedRequest)}
+            >
+              <HiDocumentDownload size={24} className="mr-2" />
+              <span>Descargar PDF</span>
+            </button>
+          </div>
           {/* Información General */}
           <section className="space-y-2">
             <h3 className="text-2xl font-semibold text-gray-700 mb-2">
@@ -136,6 +155,44 @@ const AdminAgreement: React.FC = () => {
             </div>
           </section>
 
+          <div className="mb-6">
+            <h3 className="text-2xl font-semibold text-gray-700 mb-2">
+              Contacto de Emergencia
+            </h3>
+            {selectedRequest &&
+            selectedRequest.contactoEmergencia.length === 0 ? (
+              <p className="text-gray-500 italic">
+                No se ha proporcionado contacto.
+              </p>
+            ) : (
+              selectedRequest?.contactoEmergencia.map((contacto, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600"
+                >
+                  <p>
+                    <strong>Nombre:</strong> {contacto.nombre}{" "}
+                    {contacto.apellido}
+                  </p>
+                  <p>
+                    <strong>Parentesco:</strong> {contacto.parentezco}
+                  </p>
+                  <p>
+                    <strong>Celular:</strong> {contacto.celular}
+                  </p>
+                  <p>
+                    <strong>Correo:</strong>{" "}
+                    <a
+                      href={`mailto:${contacto.correo}`}
+                      className="text-blue-600 underline"
+                    >
+                      {contacto.correo}
+                    </a>
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
           {/* Archivos Adjuntos */}
           <section className="space-y-2">
             <h3 className="text-2xl font-semibold text-gray-700 mb-2">

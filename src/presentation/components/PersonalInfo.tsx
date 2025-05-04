@@ -164,7 +164,7 @@ const PersonalInfo: React.FC = () => {
           />
 
           <Input
-            name="correoInstitucional"
+            name="c"
             value={user!.email!}
             onChange={() => {}}
             label="Correo Institucional"

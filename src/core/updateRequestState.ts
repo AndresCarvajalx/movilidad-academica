@@ -6,6 +6,7 @@ async function updateRequestState(requestId: string, newState: "pendiente" | "ac
   await updateDoc(requestDocRef, {
     estado: newState,
     observacionesAdmin: observation,
+    vistoPorEstudiante: false
   });
 }
 

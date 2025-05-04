@@ -1,22 +1,19 @@
 import React from "react";
 import View from "../../data/DashBoardViews";
-import { FaUser, FaBell, FaFileAlt, FaHandshake } from "react-icons/fa";
 
 import escudo_unitropico_1 from "../../assets/escudo_unitropico_1.png";
 
 interface SidebarProps {
+  menu: {
+    key: View;
+    label: string;
+    icon: React.ReactNode;
+  }[];
   activeView: View;
   setActiveView: (view: View) => void;
 }
 
-const SideBar: React.FC<SidebarProps> = ({ activeView, setActiveView }) => {
-  const menu: { label: string; key: View, icon: React.ReactNode }[] = [
-    { label: "Convenio", key: View.Convenio, icon: <FaHandshake />  },
-    { label: "Solicitudes", key: View.Solicitudes, icon: <FaFileAlt />},
-    { label: "Alertas", key: View.Alertas, icon: <FaBell /> },
-    { label: "Perfil", key: View.Perfil, icon: <FaUser /> },
-  ];
-
+const SideBar: React.FC<SidebarProps> = ({ activeView, setActiveView, menu }) => {
   return (
     <aside className="w-64 bg-white border-r shadow-md h-full">
       <img className="p-4 mx-auto w-28" src={escudo_unitropico_1} />
