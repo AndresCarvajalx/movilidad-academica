@@ -24,6 +24,21 @@ export function Signup() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    if(user.email === "" || user.password === "") {
+      setLoading(false);
+      alert("Por favor, completa todos los compos requeridos.")
+      return
+    }
+    if (!user.email.endsWith("@unitropico.edu.co")) {
+      setLoading(false);
+      alert("El correo electrónico debe ser institucional.");
+      return;
+    }
+    if (user.password.length < 6) {
+      setLoading(false);
+      alert("La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
     signup(user.email, user.password)
       .then(() => {
         setLoading(false);
