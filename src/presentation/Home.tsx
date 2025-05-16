@@ -30,7 +30,7 @@ export function Home() {
         if (item.key === View.Alertas && isAdmin) {
           return { ...item, label: "Metricas" };
         }
-        return item;
+        return { ...item, label: "Notificaciones" };
       })
       .filter(Boolean);
   });
